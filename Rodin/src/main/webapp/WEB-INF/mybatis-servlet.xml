@@ -4,7 +4,8 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
 	<context:component-scan base-package="rodin" />
 	<!--
@@ -12,6 +13,7 @@
 		해당 경로를 포함한 모든 하위 경로에 적용되고,
 		애노테이션을 명시한 자바 파일들이 Bean으로 동록 되어 사용 가능해진다.
 	-->
+	<mvc:annotation-driven />
 	<!-- View Resolver: JSTLView -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- 실제 view resolver로 사용할 클래스 -->
