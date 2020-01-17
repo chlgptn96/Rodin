@@ -23,7 +23,9 @@ public class FileClient {
 		//sendFile(file);
 
 	}        
-
+	private void sendFile(Socket clientSock) {
+		
+	}
 
 	private void saveFile(Socket clientSock) throws IOException {
         InputStream in = clientSock.getInputStream();
