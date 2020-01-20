@@ -26,20 +26,25 @@ public class EchoHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// TODO Auto-generated method stub
-		super.afterConnectionEstablished(session);
+		// 클라이언트와 연결
+		sessionList.add(session);
+		logger.info("{} 연결됨", session.getId());
+		logger.debug("입장자: " + session.getPrincipal().getName());
 	}
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-		// TODO Auto-generated method stub
-		super.handleMessage(session, message);
+
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		// TODO Auto-generated method stub
-		super.handleTextMessage(session, message);
+		// 서버로 데이터 전송
+		logger.info("{}로부터 {}받음", session.getId(), message.getPayload());
+		for (WebSocketSession sess: sessionList) {
+			sess.sendMessage(new TextMessage(session.getPrincipal().getName() + " | " + message.getPayload()));
+		}
+		// session.sendMessage(new TextMessage("echo: " + message.getPayload()));
 	}
 
 	@Override
@@ -56,8 +61,10 @@ public class EchoHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		// TODO Auto-generated method stub
-		super.afterConnectionClosed(session, status);
+		// 연결 끊김
+		sessionList.remove(session);
+		logger.info("{} 연결 끊김.", session.getId());
+		logger.debug("퇴장자: " + session.getPrincipal().getName());
 	}
 
 	@Override
