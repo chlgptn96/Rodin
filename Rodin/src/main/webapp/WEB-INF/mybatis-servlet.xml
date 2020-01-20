@@ -15,6 +15,7 @@
 		해당 경로를 포함한 모든 하위 경로에 적용되고,
 		애노테이션을 명시한 자바 파일들이 Bean으로 동록 되어 사용 가능해진다.
 	-->
+	<mvc:annotation-driven />
 	<bean id="echoHandler" class="rodin.util.EchoHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo"/>

@@ -16,14 +16,14 @@ public class WebsocketController {
 	@RequestMapping(value="/analysis", method=RequestMethod.GET)
 	public ModelAndView getMessage(ModelAndView mv) {
 		
-		mv.setViewName("chat/chattingview");
+		mv.setViewName("analysis");
 		
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		logger.debug("user name: " + user.getUsername());
+		// User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// logger.debug("user name: " + user.getUsername());
 		
 		logger.debug("normal chat page");
 		
-		mv.addObject("userid", user.getUsername());
+		// mv.addObject("userid", user.getUsername());
 		return mv;
 	}
 }
