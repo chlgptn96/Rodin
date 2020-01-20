@@ -12,19 +12,24 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FileClient {
+	
+	private static final Logger logger = LoggerFactory.getLogger(FileClient.class);
 	private Socket s;
     private String echo;
     
 	public FileClient(String host, int port) throws UnknownHostException, IOException {
 
 		s = new Socket(host, port);
-		saveFile(s);
-		//sendFile(file);
+//		saveFile(s);
+		sendFile();
 
 	}        
-	private void sendFile(Socket clientSock) {
-		
+	private void sendFile() {
+		logger.debug("sendfile");
 	}
 
 	private void saveFile(Socket clientSock) throws IOException {
