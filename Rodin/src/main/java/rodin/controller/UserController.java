@@ -78,4 +78,11 @@ public class UserController {
             return "redirect:/";
         }
 	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logoutAction(HttpSession session) {
+		session.invalidate();
+		logger.debug("Logout");
+		return "redirect:/";
+	}
 }
