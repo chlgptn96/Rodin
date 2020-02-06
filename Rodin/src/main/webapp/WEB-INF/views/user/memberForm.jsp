@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +70,7 @@ chk-box {
 	font-size: 1.2em;
 	font-weight: 100;
 }
+
 </style>
 
 
@@ -130,14 +131,14 @@ chk-box {
 							<input type="text" name="email" placeholder="이메일" />
 						</div>
 						<div class="col-6 col-12-mobile">
-							<input type="password" name="pwd" placeholder="비밀번호" />
+							<input type="password" name="password" placeholder="비밀번호" />
 						</div>
 						<div class="col-6 col-12-mobile">
-							<input type="text" name="hp" placeholder="휴대폰 번호" />
+							<input type="text" name="phone" placeholder="휴대폰 번호" />
 						</div>
 						<div class="col-6 col-12-mobile">
 							<input type="text" name="birth"
-								placeholder="생일 입력 ex) 2000.12.01" />
+								placeholder="생일 입력 ex) 2000-12-01" />
 						</div>
 						<div class="col-6 col-12-mobile">
 							<input type="text" name="job" placeholder="직업(선택사항)" />
@@ -215,8 +216,7 @@ chk-box {
 						<div class="col-12">
 							<ul class="buttons">
 								<li><input type="reset" class="special" value="초기화" /></li>
-								<li><input type="submit" class="special" id="nextBtn"
-									value="회원 가입 하기" /></li>
+								<li><input type="submit" class="special" id="nextBtn" value="회원 가입 하기" /></li>
 							</ul>
 						</div>
 					</div>
@@ -226,9 +226,9 @@ chk-box {
 		</section>
 
 	</article>
-
+	
 	<c:import url="/WEB-INF/views/includes/footer.jsp" />
-
+	
 	<script src="<c:url value="/assets/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/assets/js/jquery.dropotron.min.js"/>"></script>
 	<script src="<c:url value="/assets/js/jquery.scrolly.min.js"/>"></script>
