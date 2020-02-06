@@ -7,6 +7,7 @@
   	<packaging>war</packaging>
  	
  	<properties>
+ 		<org.springframework-version>4.2.3.RELEASE</org.springframework-version>
 		<!-- bridge between jcl and slf4j -->
 		<jcloverslf4j-version>1.7.7</jcloverslf4j-version>
 		<!-- slf4j Logback version -->
@@ -33,7 +34,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.2.3.RELEASE</version>
+			<version>${org.springframework-version}</version>
 			<!-- Change Basic Logger to SLF4J -->
 			<exclusions>
 				<exclusion>
@@ -80,6 +81,34 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
+		</dependency>
+		
+		<!-- mysql -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.19</version>
+		</dependency>
+		
+		<!-- jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+
+		<!-- MyBatis Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 
 	</dependencies>

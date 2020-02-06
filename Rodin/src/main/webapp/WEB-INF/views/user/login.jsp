@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +31,10 @@
 				<form method="post" action="<c:url value="/user/login" />">
 					<div class="row gtr-50">
 						<div class="col-6 col-12-mobile">
-							ID <input type="text" name="userID" placeholder="userID" />
+							ID <input type="text" name="email" placeholder="Email" />
 						</div>
 						<div class="col-6 col-12-mobile">
-							PASSWORD <input type="password" name="pwd" placeholder="password" />
+							PASSWORD <input type="password" name="password" placeholder="password" />
 						</div>
 
 						<div class="col-12">
@@ -43,9 +43,7 @@
 							</ul>
 						</div>
 						<p>
-							<b>회원이 아니시면 <a href="<c:url value="/user/join" />">여기</a>를 눌러
-								가입해 주세요.
-							</b>
+							<b>회원이 아니시면 <a href="<c:url value="/user/join" />">여기</a>를 눌러 가입해 주세요.</b>						
 						</p>
 					</div>
 				</form>

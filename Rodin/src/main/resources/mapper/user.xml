@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <insert id="insertUser" parameterType="rodin.repository.vo.UserVo">
+	    <![CDATA[
+	      INSERT INTO users (name, email, password, phone, birth, job, interests, profile, visit, regdate)
+		  VALUES (#{name}, #{email}, #{password}, #{phone}, #{birth}, #{job}, #{interests}, #{profile}, #{visit}, now())
+	    ]]>
+    </insert>
+    <select id="selectUserByEmailAndPassword" parameterType="java.util.Map" resultType="rodin.repository.vo.UserVo">
+	    <![CDATA[
+	      SELECT userno, name, email, phone, birth, job, interests, profile, visit, regdate FROM users
+	      WHERE email = #{email} AND password = #{password}
+	    ]]>
+    </select>
+</mapper>	
