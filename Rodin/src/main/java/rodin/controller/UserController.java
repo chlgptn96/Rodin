@@ -25,9 +25,9 @@ public class UserController {
 		return "user/memberForm";
 	}
 	
-	@ResponseBody
+	// @ResponseBody
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String joinAction() {
-		return "user/memberForm";
+		return "redirect:/user/memberForm";
 	}
 }
