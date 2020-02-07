@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import rodin.repository.vo.UserVo;
 
 @Controller
-@RequestMapping("/poster")
+@RequestMapping("/analysis")
 public class AnalysisController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -19,12 +19,12 @@ public class AnalysisController {
 		if (user == null) {
 			return "redirect:/";
 		} else {
-			return "poster/poster";
+			return "analysis/analysis";
 		}
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public String analysisAction() {
-		return "redirect:/poster/poster";
+		return "redirect:/analysis/analysis";
 	}
 }
