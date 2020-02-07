@@ -9,6 +9,15 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>" />
+<style>
+	header.special {
+		margin-bottom: 1em;
+		padding-top: 3em;
+	}
+	header.special h2 + p {
+		padding-top: 0;
+	}
+</style>
 </head>
 <body class="contact is-preload">
 	<c:import url="/WEB-INF/views/includes/header.jsp" />
