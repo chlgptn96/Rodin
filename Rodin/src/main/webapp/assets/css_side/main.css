@@ -280,6 +280,11 @@ input, select, textarea {
 		font-weight: 400;
 		margin: 0 0 0.625em 0;
 	}
+	
+	#upload-btn {
+		margin: 0;
+	}
+	
 
 	input[type="submit"],
 	input[type="reset"],
