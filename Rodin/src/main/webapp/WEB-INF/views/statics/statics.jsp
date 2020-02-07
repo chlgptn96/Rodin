@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/css/main_rodin.css"/>" />
 		<!--
 		<noscript>
 			<link rel="stylesheet" href="<c:url value="/assets/css/noscript.css"/>" />

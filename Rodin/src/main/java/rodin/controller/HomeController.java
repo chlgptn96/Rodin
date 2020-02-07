@@ -22,11 +22,6 @@ public class HomeController {
 		return "board/board";
 	}
 	
-	@RequestMapping("/font")
-	public String font() {
-		return "font/font";
-	}
-	
 	@RequestMapping("/mypage")
 	public String mypage() {
 		return "mypage/mypage";

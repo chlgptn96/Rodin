@@ -10,7 +10,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="<c:url value="/assets/css/main.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/css/main_rodin.css"/>" />
 		<!--
 		<noscript>
 			<link rel="stylesheet" href="<c:url value="/assets/css/noscript.css"/>" />
@@ -34,8 +34,14 @@
 
 			<footer>
 				<ul class="buttons stacked">
-					<li><a href="<c:url value="/font" />" class="button fit scrolly">포스터 분석하러 가기</a></li>
-
+					<c:choose>
+						<c:when test="${empty user }">
+							<li><a href="<c:url value="/user/login" />" class="button fit scrolly">포스터 분석하러 가기</a></li>	
+						</c:when>
+						<c:otherwise>
+							<li><a href="<c:url value="/font" />" class="button fit scrolly">포스터 분석하러 가기</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</footer>
 
