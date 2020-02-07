@@ -41,7 +41,7 @@
 								</ul>
 							</li>
 							-->
-							<li><a href="<c:url value="/font" />">폰트분석</a></li>
+							<li><a href="<c:url value="/analysis" />">폰트분석</a></li>
 							<!--  -->
 							<!--  
 							<li><a href="<c:url value="/poster" />">Poster</a></li>

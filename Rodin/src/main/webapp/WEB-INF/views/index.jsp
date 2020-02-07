@@ -29,7 +29,7 @@
 
 			<footer>
 				<ul class="buttons stacked">
-					<li><a href="<c:url value="/font" />" class="button fit scrolly">포스터 분석하러 가기</a></li>
+					<li><a href="<c:url value="/analysis" />" class="button fit scrolly">포스터 분석하러 가기</a></li>
 
 				</ul>
 			</footer>
