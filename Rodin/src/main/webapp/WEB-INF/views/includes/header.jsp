@@ -46,6 +46,7 @@
 							<!--  
 							<li><a href="<c:url value="/poster" />">Poster</a></li>
 							-->
+							<li><a href="<c:url value="/poster" />">포스터</a></li>
 							<li><a href="<c:url value="/statics" />">통계</a></li>
 							<!--  -->
 							<!--  

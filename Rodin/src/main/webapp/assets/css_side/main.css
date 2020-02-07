@@ -139,7 +139,7 @@ input, select, textarea {
 		color: #aaa;
 	}
 
-	body, input, select, textarea {
+	body, input, select, textarea, #upload-btn {
 		font-family: "Roboto", Helvetica, sans-serif;
 		font-weight: 400;
 		line-height: 1.65;
@@ -273,10 +273,19 @@ input, select, textarea {
 
 /* Button */
 
+	label {
+		color: #555;
+		display: block;
+		font-size: 0.9em;
+		font-weight: 400;
+		margin: 0 0 0.625em 0;
+	}
+
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
 	button,
+	#upload-btn,
 	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -303,6 +312,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		input[type="button"]:hover,
 		button:hover,
+		#upload-btn:hover,
 		.button:hover {
 			border-color: #00D3B7;
 			color: #00D3B7;
@@ -312,6 +322,7 @@ input, select, textarea {
 			input[type="reset"]:hover:active,
 			input[type="button"]:hover:active,
 			button:hover:active,
+			#upload-btn:hover:active,
 			.button:hover:active {
 				background-color: rgba(0, 211, 183, 0.15);
 			}
@@ -320,6 +331,7 @@ input, select, textarea {
 		input[type="reset"].icon,
 		input[type="button"].icon,
 		button.icon,
+		#upload-btn.icon,
 		.button.icon {
 			padding-left: 1.35em;
 		}
@@ -328,6 +340,7 @@ input, select, textarea {
 			input[type="reset"].icon:before,
 			input[type="button"].icon:before,
 			button.icon:before,
+			#upload-btn:before,
 			.button.icon:before {
 				margin-right: 0.5em;
 			}
@@ -336,6 +349,7 @@ input, select, textarea {
 		input[type="reset"].fit,
 		input[type="button"].fit,
 		button.fit,
+		#upload-btn.fit,
 		.button.fit {
 			width: 100%;
 		}
@@ -343,6 +357,7 @@ input, select, textarea {
 		input[type="submit"].small,
 		input[type="reset"].small,
 		input[type="button"].small,
+		#upload-btn.small,
 		button.small,
 		.button.small {
 			font-size: 0.8em;
@@ -352,17 +367,21 @@ input, select, textarea {
 		input[type="reset"].large,
 		input[type="button"].large,
 		button.large,
+		#upload-btn.large,
 		.button.large {
 			font-size: 1.35em;
 		}
 
-		input[type="submit"].disabled, input[type="submit"]:disabled,
+		input[type="submit"].disabled,
+		input[type="submit"]:disabled,
 		input[type="reset"].disabled,
 		input[type="reset"]:disabled,
 		input[type="button"].disabled,
 		input[type="button"]:disabled,
 		button.disabled,
 		button:disabled,
+		#upload-btn.disabled,
+		#upload-btn:disabled,
 		.button.disabled,
 		.button:disabled {
 			pointer-events: none;
@@ -374,15 +393,7 @@ input, select, textarea {
 	form {
 		margin: 0 0 1.25em 0;
 	}
-
-	label {
-		color: #555;
-		display: block;
-		font-size: 0.9em;
-		font-weight: 400;
-		margin: 0 0 0.625em 0;
-	}
-
+	
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
@@ -789,6 +800,7 @@ input, select, textarea {
 					ul.actions:not(.fixed) li input[type="submit"],
 					ul.actions:not(.fixed) li input[type="reset"],
 					ul.actions:not(.fixed) li input[type="button"],
+					ul.actions:not(.fixed) li #upload-btn,
 					ul.actions:not(.fixed) li button,
 					ul.actions:not(.fixed) li .button {
 						width: 100%;
@@ -798,6 +810,7 @@ input, select, textarea {
 						ul.actions:not(.fixed) li input[type="reset"].icon:before,
 						ul.actions:not(.fixed) li input[type="button"].icon:before,
 						ul.actions:not(.fixed) li button.icon:before,
+						ul.actions:not(.fixed) li #upload-btn.icon:before,
 						ul.actions:not(.fixed) li .button.icon:before {
 							margin-left: -0.5rem;
 						}
