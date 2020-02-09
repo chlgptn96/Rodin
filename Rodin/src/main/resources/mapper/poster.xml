@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="poster">
+    <insert id="insertPoster" parameterType="rodin.repository.vo.PosterVo">
+	    <![CDATA[
+	      INSERT INTO posters (owner, saved_name, origin_name, regdate)
+		  VALUES (#{owner}, #{savedName}, #{originName}, now())
+	    ]]>
+    </insert>
+    <select id="selectAllPosterByEmail" parameterType="String" resultType="rodin.repository.vo.PosterVo">
+	    <![CDATA[
+	      SELECT posterno, owner, saved_name, origin_name, regdate FROM posters
+	      WHERE owner = #{owner}
+	      ORDER BY regdate DESC
+	    ]]>
+    </select>
+</mapper>	
