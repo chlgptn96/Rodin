@@ -26,7 +26,7 @@
 				clip:rect(0,0,0,0);
 				border: 0;
 			}
-			#upload-btn, #extract-btn, #submit-btn {
+			#upload-btn, #extract-btn, #submit-btn, #upload-submit {
 				width: 100%;
 				text-align: center;
 			}
@@ -48,43 +48,70 @@
 					<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 				</ul>
 				-->
-				<form action="<c:url value="/poster/upload"/>" method="POST" enctype="multipart/form-data">
-					<label id="upload-btn" for="file_upload">파일 업로드</label>
+
+				<form action="" method="POST" enctype="multipart/form-data">
+				<!-- <form id="uploadForm"> -->
+					<label id="upload-btn" for="file_upload">파일 추가</label>
 					<input id="file_upload" type="file" name="file1">
-					<input id="extract-btn" type="button" name="" value="폰트 추출">
-					<input id="submit-btn" type="submit" value="폰트 검색">
+					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/upload"/>';">
+					<input id="extract-btn" type="button" value="폰트 추출">
+					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis"/>';">
 				</form>
 			</header>
 			<section id="thumbnails">
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/1.jpg"/>"  data-position="left center"><img src="<c:url value="images/thumbs/1.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[0].owner}/${posterList[0].savedName}"/>"  data-position="left center">
+						<img src="<c:url value="/local/${posterList[0].owner}/${posterList[0].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[0].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[0].regdate}</p>
 				</article>
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/2.jpg"/>"><img src="<c:url value="images/thumbs/2.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[1].owner}/${posterList[1].savedName}"/>">
+						<img src="<c:url value="/local/${posterList[1].owner}/${posterList[1].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[1].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[1].regdate}</p>
 				</article>
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/3.jpg"/>" data-position="top center"><img src="<c:url value="images/thumbs/3.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[2].owner}/${posterList[2].savedName}"/>" data-position="top center">
+						<img src="<c:url value="/local/${posterList[2].owner}/${posterList[2].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[2].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[2].regdate}</p>
 				</article>
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/4.jpg"/>"><img src="<c:url value="images/thumbs/4.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[3].owner}/${posterList[3].savedName}"/>">
+						<img src="<c:url value="/local/${posterList[3].owner}/${posterList[3].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[3].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[3].regdate}</p>
 				</article>
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/5.jpg"/>" data-position="top center"><img src="<c:url value="images/thumbs/5.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[4].owner}/${posterList[4].savedName}"/>" data-position="top center">
+						<img src="<c:url value="/local/${posterList[4].owner}/${posterList[4].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[4].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[4].regdate}</p>
 				</article>
 				<article>
-					<a class="thumbnail" href="<c:url value="/images/fulls/6.jpg"/>"><img src="<c:url value="images/thumbs/6.jpg"/>" alt="" /></a>
+					<a class="thumbnail" href="<c:url value="/local/${posterList[5].owner}/${posterList[5].savedName}"/>">
+						<img src="<c:url value="/local/${posterList[5].owner}/${posterList[5].savedName}"/>" alt="" />
+					</a>
+					<h2>파일 이름</h2>
+					<p>${posterList[5].originName}</p>
 					<h2>확인 날짜</h2>
-					<p>yyyy-MM-dd</p>
+					<p>${posterList[5].regdate}</p>
 				</article>
 			</section>
 			<footer id="footer">
@@ -101,4 +128,32 @@
 		<script src="<c:url value="/assets/js_side/main.js" />" ></script>
 
 	</body>
+	
+	<script>
+	/*
+	$(function(){
+		 
+	    $('#uploadBtn').on('click', function(){
+	        uploadFile();
+	    });
+	 
+	});
+	 
+	function uploadFile(){
+	    
+	    var form = $('#uploadForm')[0];
+	    var formData = new FormData(form);
+	 
+	    $.ajax({
+	        url : '<c:url value="/analysis"/>',
+	        type : 'POST',
+	        data : formData,
+	        contentType : false,
+	        processData : false        
+	    }).done(function(data){
+	        callback(data);
+	    });
+	}
+	*/
+	</script>
 </html>
