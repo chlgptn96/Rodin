@@ -37,6 +37,7 @@
 		<!-- dataSource 속성에는 dataSource Bean의 id를 참조로 넘겨줘야 한다 -->
 		<property name="dataSource" ref="mysqlDataSource" />
 		<property name="mapperLocations" value="classpath:/mapper/**/*.xml" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
 	
 	<!-- MyBatis SqlSessionTemplate -->
