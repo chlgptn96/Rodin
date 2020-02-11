@@ -6,7 +6,7 @@
 		<title>폰트 분석 페이지</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="<c:url value="/assets/css_side/main.css"/>" />
+		<link rel="stylesheet" href="<c:url value="/assets/css/css_side/main.css"/>" />
 		<!--
 		<noscript><link rel="stylesheet" href="<c:url value="/assets/css_side/noscript.css"/>" /></noscript>
 		-->
@@ -122,38 +122,14 @@
 		</div>
 
 		<!-- Scripts -->
-		<script src="<c:url value="/assets/js_side/jquery.min.js" />" ></script>
-		<script src="<c:url value="/assets/js_side/browser.min.js" />" ></script>
-		<script src="<c:url value="/assets/js_side/breakpoints.min.js" />" ></script>
-		<script src="<c:url value="/assets/js_side/main.js" />" ></script>
+		<script src="<c:url value="/assets/js/js_side/jquery.min.js" />" ></script>
+		<script src="<c:url value="/assets/js/js_side/browser.min.js" />" ></script>
+		<script src="<c:url value="/assets/js/js_side/breakpoints.min.js" />" ></script>
+		<script src="<c:url value="/assets/js/js_side/main.js" />" ></script>
 
 	</body>
 	
 	<script>
-	/*
-	$(function(){
-		 
-	    $('#uploadBtn').on('click', function(){
-	        uploadFile();
-	    });
-	 
-	});
-	 
-	function uploadFile(){
-	    
-	    var form = $('#uploadForm')[0];
-	    var formData = new FormData(form);
-	 
-	    $.ajax({
-	        url : '<c:url value="/analysis"/>',
-	        type : 'POST',
-	        data : formData,
-	        contentType : false,
-	        processData : false        
-	    }).done(function(data){
-	        callback(data);
-	    });
-	}
-	*/
+	
 	</script>
 </html>
