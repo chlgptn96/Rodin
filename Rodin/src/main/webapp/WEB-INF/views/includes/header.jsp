@@ -16,7 +16,7 @@
 </style>
 <header id="header">
 	<h1 id="logo">
-		<a href="<c:url value="/" /> ">RODIN</a>
+		<a href="<c:url value="/autologin" /> ">RODIN</a>
 	</h1>
 	<nav id="nav">
 		<ul>
