@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonClientException;
@@ -18,16 +19,15 @@ import rodin.repository.vo.UserVo;
 public class S3UploadImage {
 	private static Logger logger = LoggerFactory.getLogger(S3UploadImage.class);
 	 
-    public static void upload(AmazonS3 s3client, MultipartFile file, HttpSession session) {
+    public static void upload(AmazonS3 s3client, MultipartFile file, String bucketName, String email) {
     	
         ObjectMetadata omd = new ObjectMetadata();
         
-        UserVo user = (UserVo) session.getAttribute("user");
-        String bucketName = "rodin-image";
-        String folderName = user.getEmail();
+        //UserVo user = (UserVo) session.getAttribute("user");
+        
+        String folderName = email;
         
         try {            
-            // 사진 여러개 업로드
             omd.setContentType(file.getContentType());
             omd.setContentLength(file.getSize());
             omd.setHeader("filename", file.getOriginalFilename());
