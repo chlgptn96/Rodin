@@ -27,7 +27,7 @@ public class HomeController {
 
         UserVo user = userService.getUserByEmailAndPasswordAtService("tester", "1234");
         session.setAttribute("user", user);
-		return "redirect:/merged";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/bgp")
@@ -70,9 +70,5 @@ public class HomeController {
 		return "cropper/cropper";
 	}
 	
-	@RequestMapping("/merged")
-	public String merged() {
-		return "merged/merged";
-	}
 
 }
