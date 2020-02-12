@@ -15,6 +15,7 @@ import rodin.util.HandlerFile;
 public interface AnalysisService {
 	public void uploadFile(MultipartHttpServletRequest multipartRequest, HttpSession session);
 	public List<PosterVo> selectAllFile(String email);
+	public List<String> selectAllFileNameS3(AmazonS3 s3Client, String bucketName, HttpSession session) throws Exception;
 	public void sendFile(HttpSession session);
-	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, HttpSession session) throws Exception;
+	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, String bucketName, HttpSession session) throws Exception;
 }
