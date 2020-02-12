@@ -6,7 +6,7 @@
 		<title>폰트 분석 페이지</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="<c:url value="/assets/css/css_side/main.css"/>" />
+		<link rel="stylesheet" href="<c:url value="/assets/css_side/main.css"/>" />
 		<!--
 		<noscript><link rel="stylesheet" href="<c:url value="/assets/css_side/noscript.css"/>" /></noscript>
 		-->
