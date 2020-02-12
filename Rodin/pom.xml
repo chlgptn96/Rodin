@@ -124,11 +124,21 @@
 			<version>1.2.3</version>
 		</dependency>
 		
-		<!-- Amazon S3 -->
+		<!-- Amazon S3 2.0-->
+		<!--
 		<dependency>
 		    <groupId>software.amazon.awssdk</groupId>
 		    <artifactId>s3</artifactId>
 		</dependency>
+		-->
+		
+		<!-- Amazon S3 -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk</artifactId>
+		    <version>1.11.719</version>
+		</dependency>
+		
 		
 	</dependencies>
 </project>
