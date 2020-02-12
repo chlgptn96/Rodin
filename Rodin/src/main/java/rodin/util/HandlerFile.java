@@ -88,8 +88,12 @@ public class HandlerFile {
 			String saveFileName = sb.append(new SimpleDateFormat("yyyyMMddhhmmss").format(System.currentTimeMillis()))
 					.append(UUID.randomUUID().toString()).append(oldFileName.substring(oldFileName.lastIndexOf("."))).toString();
 			*/
+			/*
 			String saveFileName = sb.append(new SimpleDateFormat("yyyyMMddhhmmss").format(System.currentTimeMillis()))
 					.append(oldFileName.substring(oldFileName.lastIndexOf(".")))
+					.toString();
+			*/
+			String saveFileName = sb.append(System.currentTimeMillis())
 					.toString();
 			fileFullPath = filePath + "/" + saveFileName;
 			
