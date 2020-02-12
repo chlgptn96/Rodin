@@ -42,20 +42,28 @@ public class AnalysisController {
 	@Value("${secret_key}")
 	private String secretKey;
 	
+	@Value("${bucket_name}")
+	private String bucketName;
+	
 	@Autowired
 	AnalysisService analysisService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String analysis(Model model, HttpSession session) {
+	public String analysis(Model model, HttpSession session) throws Exception {
 		//model.addAttribute("serverTime");
 		UserVo user = (UserVo) session.getAttribute("user");
 
+		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+//		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+		AmazonS3 s3Client = new AmazonS3Client(credentials);
+		
 		if (user == null) {
 			return "redirect:/";
 		} else {
 			logger.debug("Get Image List");
-			List<PosterVo> posterList = analysisService.selectAllFile(user.getEmail());
-			System.err.println("List : " + posterList.toString());			
+			//List<PosterVo> posterList = analysisService.selectAllFile(user.getEmail());
+			List<String> posterList = analysisService.selectAllFileNameS3(s3Client, bucketName, session);
+			System.err.println("List : " + posterList.toString());
 			model.addAttribute("posterList", posterList);			
 			return "analysis/analysis";
 		}
@@ -96,7 +104,7 @@ public class AnalysisController {
 //		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
 		AmazonS3 s3Client = new AmazonS3Client(credentials);
 		
-		analysisService.uploadFileS3(s3Client, file,  session);
+		analysisService.uploadFileS3(s3Client, file, bucketName, session);
 		
 		return "redirect:/analysis";
 	}
