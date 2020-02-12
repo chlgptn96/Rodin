@@ -11,13 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.amazonaws.services.s3.AmazonS3;
 
 import rodin.repository.mapper.PosterMapper;
 import rodin.repository.vo.PosterVo;
 import rodin.repository.vo.UserVo;
 import rodin.util.Client;
 import rodin.util.HandlerFile;
+import rodin.util.S3UploadImage;
 
 @Service("analysisService")
 public class AnalysisServiceImpl implements AnalysisService {
@@ -93,6 +97,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 		String js;
 		ServletOutputStream out;
 		
+	}
+
+	@Override
+	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, HttpSession session) throws Exception {
+			S3UploadImage.upload(s3Client, file, session);
 	}
 
 }
