@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -64,10 +65,9 @@ public class AnalysisController {
 	AnalysisService analysisService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String analysis(Model model, HttpSession session) throws Exception {
+	public String analysis(Model model, HttpSession session, ModelAndView mv) throws Exception {
 		//model.addAttribute("serverTime");
 		UserVo user = (UserVo) session.getAttribute("user");
-
 		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 //		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
 		AmazonS3 s3Client = new AmazonS3Client(credentials);
@@ -124,7 +124,7 @@ public class AnalysisController {
 //	public String submitReport1(@RequestParam("file1") MultipartFile picture) throws IOException {
 //		
 	@ResponseBody
-	@RequestMapping(value="flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
+	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 	public String submitReport1(HttpSession session) throws IOException { 
 		
 		MultipartFile picture = (MultipartFile) session.getAttribute("multipartFile");
