@@ -21,6 +21,7 @@ import rodin.repository.vo.PosterVo;
 import rodin.repository.vo.UserVo;
 import rodin.util.Client;
 import rodin.util.HandlerFile;
+import rodin.util.S3DownloadImage;
 import rodin.util.S3UploadImage;
 
 @Service("analysisService")
@@ -88,6 +89,14 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<PosterVo> list = posterMapper.selectAllPosterByEmail(email);
 		return list;
 	}
+	
+	@Override
+	public List<String> selectAllFileNameS3(AmazonS3 s3Client, String bucketName, HttpSession session) throws Exception {
+		UserVo user = (UserVo) session.getAttribute("user");
+		String email = user.getEmail();
+		List<String> posterList = S3DownloadImage.getImageList(s3Client, bucketName, email);
+		return posterList;
+	}
 
 	@Override
 	public void sendFile(HttpSession session) {
@@ -98,10 +107,27 @@ public class AnalysisServiceImpl implements AnalysisService {
 		ServletOutputStream out;
 		
 	}
+	
 
 	@Override
-	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, HttpSession session) throws Exception {
-			S3UploadImage.upload(s3Client, file, session);
+	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, String bucketName, HttpSession session) throws Exception {
+			UserVo user = (UserVo) session.getAttribute("user");
+			String email = user.getEmail();
+			
+			Map<String, String> fileName = S3UploadImage.upload(s3Client, file, bucketName, email);
+			
+			PosterVo poster = new PosterVo();
+			poster.setOwner(user.getEmail());
+			poster.setOriginName(fileName.get("oldName"));
+			poster.setSavedName(fileName.get("newName"));
+
+			posterMapper.insertPoster(poster);
+			
+			// 삭제예정
+			session.setAttribute("fileName", fileName);
+			
+			System.err.println("filename : " + fileName.toString());
+			
 	}
 
 }

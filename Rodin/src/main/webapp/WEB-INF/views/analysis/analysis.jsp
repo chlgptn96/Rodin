@@ -56,66 +56,19 @@
 					<!-- 
 					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/upload"/>';">
 					-->
-					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/s3upload"/>';">
+					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/s3upload" />';">
 					<input id="extract-btn" type="button" value="폰트 추출">
-					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis"/>';">
+					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis/flask"/>';">
 				</form>
 			</header>
 			<section id="thumbnails">
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[0].owner}/${posterList[0].savedName}"/>"  data-position="left center">
-						<img src="<c:url value="/local/${posterList[0].owner}/${posterList[0].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[0].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[0].regdate}</p>
-				</article>
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[1].owner}/${posterList[1].savedName}"/>">
-						<img src="<c:url value="/local/${posterList[1].owner}/${posterList[1].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[1].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[1].regdate}</p>
-				</article>
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[2].owner}/${posterList[2].savedName}"/>" data-position="top center">
-						<img src="<c:url value="/local/${posterList[2].owner}/${posterList[2].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[2].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[2].regdate}</p>
-				</article>
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[3].owner}/${posterList[3].savedName}"/>">
-						<img src="<c:url value="/local/${posterList[3].owner}/${posterList[3].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[3].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[3].regdate}</p>
-				</article>
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[4].owner}/${posterList[4].savedName}"/>" data-position="top center">
-						<img src="<c:url value="/local/${posterList[4].owner}/${posterList[4].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[4].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[4].regdate}</p>
-				</article>
-				<article>
-					<a class="thumbnail" href="<c:url value="/local/${posterList[5].owner}/${posterList[5].savedName}"/>">
-						<img src="<c:url value="/local/${posterList[5].owner}/${posterList[5].savedName}"/>" alt="" />
-					</a>
-					<h2>파일 이름</h2>
-					<p>${posterList[5].originName}</p>
-					<h2>확인 날짜</h2>
-					<p>${posterList[5].regdate}</p>
-				</article>
+				<c:forEach items="${posterList }" begin="0" end="5" var="poster" varStatus="status">
+					<article>
+						<a class="thumbnail" href="https://rodin-image.s3.ap-northeast-2.amazonaws.com/${poster }">
+							<img src="https://rodin-image.s3.ap-northeast-2.amazonaws.com/${poster }" alt="" />
+						</a>
+					</article>
+				</c:forEach>
 			</section>
 			<footer id="footer">
 				<ul class="copyright">

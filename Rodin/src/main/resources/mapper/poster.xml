@@ -15,4 +15,11 @@
 	      ORDER BY regdate DESC
 	    ]]>
     </select>
+    <select id="selectPosterByImageName" parameterType="String" resultType="rodin.repository.vo.PosterVo">
+    	<![CDATA[
+	      SELECT posterno, owner, saved_name, origin_name, regdate FROM posters
+	      WHERE owner = #{owner}
+	      ORDER BY regdate DESC
+	    ]]>
+    </select>
 </mapper>	
