@@ -22,9 +22,14 @@ public class PosterMapper extends AbstractDao {
     }
 
     public List<PosterVo> selectAllPosterByEmail(String email) {
-        logger.debug("Query Called At MapperMethod");
         @SuppressWarnings("unchecked")
 		List<PosterVo> list = (List<PosterVo>) selectList("poster.selectAllPosterByEmail", email);
         return list;
     }
-}
+    
+    public PosterVo selectPosterByImageName(String image) {
+    	logger.debug("Get Image Information From DB");
+    	PosterVo pvo = (PosterVo) selectOne("poster.selectPosterByImageName");
+    	return pvo;
+    }
+ }
