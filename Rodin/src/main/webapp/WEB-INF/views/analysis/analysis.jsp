@@ -56,9 +56,9 @@
 					<!-- 
 					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/upload"/>';">
 					-->
-					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/s3upload"/>';">
+					<input id="upload-submit" type="submit" value="파일 업로드" onclick="javascript: form.action='<c:url value="/analysis/s3upload" />';">
 					<input id="extract-btn" type="button" value="폰트 추출">
-					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis"/>';">
+					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis/flask"/>';">
 				</form>
 			</header>
 			<section id="thumbnails">
