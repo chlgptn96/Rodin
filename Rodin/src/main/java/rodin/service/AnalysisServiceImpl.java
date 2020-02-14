@@ -113,7 +113,21 @@ public class AnalysisServiceImpl implements AnalysisService {
 	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, String bucketName, HttpSession session) throws Exception {
 			UserVo user = (UserVo) session.getAttribute("user");
 			String email = user.getEmail();
-			S3UploadImage.upload(s3Client, file, bucketName, email);
+			
+			Map<String, String> fileName = S3UploadImage.upload(s3Client, file, bucketName, email);
+			
+			PosterVo poster = new PosterVo();
+			poster.setOwner(user.getEmail());
+			poster.setOriginName(fileName.get("oldName"));
+			poster.setSavedName(fileName.get("newName"));
+
+			posterMapper.insertPoster(poster);
+			
+			// 삭제예정
+			session.setAttribute("fileName", fileName);
+			
+			System.err.println("filename : " + fileName.toString());
+			
 	}
 
 }
