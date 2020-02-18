@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -96,8 +97,15 @@ public class AnalysisController {
 		return "redirect:/analysis";
 	}
 	*/
-	
-	
+
+	@RequestMapping(value="", method=RequestMethod.POST)
+	public String analysisAction() {
+		//logger.debug("Send File to Server");
+		//logger.debug("Must be fixed! - Send Cropped Image to Server");
+		logger.debug("Get Cropped Image");
+		// analysisService.sendFile(session);
+		return "redirect:/analysis";
+	}
 	
 	/*
 	 * Upload Action
@@ -120,11 +128,11 @@ public class AnalysisController {
 	*/
 	
 //	@ResponseBody
-//	@RequestMapping(value="flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
+//	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 //	public String submitReport1(@RequestParam("file1") MultipartFile picture) throws IOException {
 //		
 	@ResponseBody
-	@RequestMapping(value="flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
+	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 	public String submitReport1(HttpSession session) throws IOException { 
 		
 		MultipartFile picture = (MultipartFile) session.getAttribute("multipartFile");
@@ -215,5 +223,27 @@ public class AnalysisController {
 		
 		return "redirect:/analysis";
 	}
+	
+	@RequestMapping(value="/cropper", method=RequestMethod.GET)
+	public String cropper(HttpSession session) {
+		
+		String url = (String) session.getAttribute("imgURL");
+		System.err.println("url(GET) : " + url);
+		// null값 받아오는 중
+		return "analysis/cropper";
+	}
+	
+	@RequestMapping(value="/cropper", method=RequestMethod.POST)
+	public String sendDataToCropper(
+			@RequestParam("url") String url,
+			HttpSession session) {
+			
+		System.err.println("url(POST) : " + url);
+		// 제대로 나옴
+		session.setAttribute("imgURL", url);
+		
+		return "redirect:/analysis/cropper";
+	}
+	
 	
 }
