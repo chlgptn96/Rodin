@@ -104,7 +104,11 @@
       <div class="col-md-9">
         <!-- <h3>Demo:</h3> -->
         <div class="img-container">
+          <!--
           <img src="images/picture.jpg" alt="Picture">
+          -->
+          <img src="${imgURL} " alt="">
+          
         </div>
       </div>
       <div class="col-md-3">
