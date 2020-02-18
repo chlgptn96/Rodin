@@ -130,4 +130,10 @@ public class AnalysisServiceImpl implements AnalysisService {
 			
 	}
 
+	@Override
+	public PosterVo selectFile(HttpSession session) {
+		PosterVo poster = null;
+		return poster;
+	}
+
 }
