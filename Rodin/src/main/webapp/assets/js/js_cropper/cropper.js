@@ -3331,6 +3331,7 @@
 
         if (options.checkCrossOrigin && isCrossOriginURL(url) && element.crossOrigin) {
           url = addTimestamp(url);
+          console.log(url);
         }
 
         xhr.open('GET', url);
