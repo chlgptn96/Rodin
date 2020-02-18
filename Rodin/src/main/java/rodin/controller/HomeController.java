@@ -65,10 +65,5 @@ public class HomeController {
 		return "help";
 	}
 	
-	@RequestMapping("/cropper")
-	public String cropper() {
-		return "cropper/cropper";
-	}
-	
 
 }
