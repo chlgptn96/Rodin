@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -101,6 +103,7 @@ public class AnalysisController {
 	public String analysisAction() {
 		//logger.debug("Send File to Server");
 		//logger.debug("Must be fixed! - Send Cropped Image to Server");
+		System.err.println("Cropped Image");
 		logger.debug("Get Cropped Image");
 		// analysisService.sendFile(session);
 		return "redirect:/analysis";
@@ -129,13 +132,19 @@ public class AnalysisController {
 //	@ResponseBody
 //	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 //	public String submitReport1(@RequestParam("file1") MultipartFile picture) throws IOException {
-//		
+//	
+//	@ResponseBody
+//	@RequestMapping(value="/flask", method=RequestMethod.GET)
+//	public String getSentImg() {
+//		return "";
+//	}
+//	
 	@ResponseBody
 	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
-	public String submitReport1(HttpSession session) throws IOException { 
+	public ResponseEntity<JSONObject> sendCoppedImgtoServer(HttpSession session, MultipartHttpServletRequest multipartRequest) throws IOException { 
 		
-		MultipartFile picture = (MultipartFile) session.getAttribute("multipartFile");
-		
+		// MultipartFile picture = (MultipartFile) session.getAttribute("multipartFile");
+		MultipartFile cropped = multipartRequest.getFile("croppedImage");
 		// 플라스크한테 파일 보낼꺼야~(MULTIPART_FORM_DATA);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -146,17 +155,18 @@ public class AnalysisController {
 		/*
 		UUID tempFileName = UUID.randomUUID();
 		*/
-        String tempFileExtensionPlusDot = "."+FilenameUtils.getExtension(picture.getOriginalFilename());
+        // String tempFileExtensionPlusDot = "."+FilenameUtils.getExtension(picture.getOriginalFilename());
+		// String tempFileExtensionPlusDot = "."+FilenameUtils.getExtension(cropped.getOriginalFilename());
+		// System.out.println(tempFileExtensionPlusDot);
 		
-		System.out.println(tempFileExtensionPlusDot);
+		// @SuppressWarnings("rawtypes")
+		// String fileName = (String) ((Map) session.getAttribute("fileName")).get("newName");
 		
-		@SuppressWarnings("rawtypes")
-		String fileName = (String) ((Map) session.getAttribute("fileName")).get("newName");
-		
-		File tempFile = File.createTempFile(fileName, tempFileExtensionPlusDot);
-		
-		//File tempFile = new File(fileName);
-        picture.transferTo(tempFile);
+		// File tempFile = File.createTempFile(fileName, tempFileExtensionPlusDot);
+		File tempFile = File.createTempFile("crop", "");
+		//File tempFile = new File("cropped");
+        // picture.transferTo(tempFile);
+		cropped.transferTo(tempFile);
         FileSystemResource fileSystemResource = new FileSystemResource(tempFile);
 
 		body.add("picture", fileSystemResource);
@@ -167,11 +177,15 @@ public class AnalysisController {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
-		System.out.println(response.getBody());
+		//ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
+		ResponseEntity<JSONObject> response = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, JSONObject.class);
 		
-		return response.getBody();
+		// System.out.println(response.getBody());
+		System.err.println(response.getBody());
+		JSONObject jsonObj = response.getBody();
 		
+		//return response.getBody();
+		return ResponseEntity.ok(jsonObj);
 	}
 	
 	public static class FilenameAwareInputStreamResource extends InputStreamResource {
