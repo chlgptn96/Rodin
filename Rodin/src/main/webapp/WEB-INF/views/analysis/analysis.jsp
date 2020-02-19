@@ -189,7 +189,7 @@
 				maxWidth: 500,
 				maxHeight: 500,
 			});
-			$croppedImageBox.css('display', 'block');
+			// $croppedImageBox.css('display', 'block');
 			croppedImage.src = canvas.toDataURL();
 			$alert.removeClass('alert-success alert-warning');
 			//initialURL = image.src;
@@ -198,17 +198,18 @@
 				
 				formData.append('croppedImage', blob, 'croppedImage.jpg');
 				$.ajax({
-					url: '<c:url value="/analysis" />',
+					url: '<c:url value="/analysis/flask" />',
+					enctype: 'multipart/form-data',
 					method: 'POST',
 					data: formData,
 					processData: false,
 					contentType: false,
 					success: function() {
-						//$alert.show().addClass('alert-success').text('Upload success');
+						// $alert.show().addClass('alert-success').text('Upload success');
 					},
 					error: function() {
 						croppedImage.src = baseSrc;
-						//$alert.show().addClass('alert-warning').text('Upload error');
+						// $alert.show().addClass('alert-warning').text('Upload error');
 					},
 					complete: function () {
 
