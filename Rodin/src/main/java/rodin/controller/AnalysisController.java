@@ -133,15 +133,18 @@ public class AnalysisController {
 //	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 //	public String submitReport1(@RequestParam("file1") MultipartFile picture) throws IOException {
 //	
-//	@ResponseBody
-//	@RequestMapping(value="/flask", method=RequestMethod.GET)
-//	public String getSentImg() {
-//		return "";
-//	}
-//	
+	//@ResponseBody
+	@RequestMapping(value="/flask", method=RequestMethod.GET)
+	public String getSentImg() {
+		System.err.println("flask GET");
+		return "redirect:/analysis";
+	}
+
 	@ResponseBody
 	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
 	public ResponseEntity<JSONObject> sendCoppedImgtoServer(HttpSession session, MultipartHttpServletRequest multipartRequest) throws IOException { 
+		
+		System.err.println("flask POST");
 		
 		// MultipartFile picture = (MultipartFile) session.getAttribute("multipartFile");
 		MultipartFile cropped = multipartRequest.getFile("croppedImage");
@@ -184,6 +187,8 @@ public class AnalysisController {
 		System.err.println(response.getBody());
 		JSONObject jsonObj = response.getBody();
 		
+		analysisService.selectFileByFontName(jsonObj);
+		
 		//return response.getBody();
 		return ResponseEntity.ok(jsonObj);
 	}
@@ -222,7 +227,7 @@ public class AnalysisController {
 	public String s3UploadAction(
 			@RequestParam("file1") MultipartFile file,
 			HttpSession session) throws Exception {
-		
+		System.err.println("s3Upload POST");
 		System.err.println(accessKey);
 		System.err.println(secretKey);
 		
@@ -240,6 +245,8 @@ public class AnalysisController {
 	@RequestMapping(value="/cropper", method=RequestMethod.GET)
 	public String cropper(HttpSession session) {
 		
+		System.err.println("cropper GET");
+		
 		String url = (String) session.getAttribute("imgURL");
 		System.err.println("url(GET) : " + url);
 		// null값 받아오는 중
@@ -250,6 +257,8 @@ public class AnalysisController {
 	public String sendDataToCropper(
 			@RequestParam("url") String url,
 			HttpSession session) {
+		
+		System.err.println("cropper POST");
 			
 		System.err.println("url(POST) : " + url);
 		// 제대로 나옴
