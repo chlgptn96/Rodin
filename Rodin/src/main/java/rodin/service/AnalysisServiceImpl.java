@@ -1,12 +1,16 @@
 package rodin.service;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,9 +135,50 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public PosterVo selectFile(HttpSession session) {
-		PosterVo poster = null;
-		return poster;
-	}
+	public void selectFileByFontName(JSONObject analysisResult) {
+		System.err.println("Get Font Info");
 
+		@SuppressWarnings("unchecked")
+		List<List<Object>> res = (List<List<Object>>) analysisResult.get("result");				
+		List<Map<String, List<Map<String, Object>>>> result = addResult(res);
+				
+		System.err.println("result : " + result);
+	}
+	
+	public static List<Map<String, List<Map<String, Object>>>> stringListToMap(List<List<Object>> analysisResultList) {
+		return addResult(analysisResultList);
+	}
+	
+	public static List<Map<String, List<Map<String, Object>>>> addResult(List<List<Object>> analysisResult) {
+		List<Map<String, List<Map<String, Object>>>> sortedList = new ArrayList<Map<String, List<Map<String, Object>>>>();
+		Map<String, List<Map<String, Object>>> accuracyRanking = null;
+		List<Map<String, Object>> fontInfo = null;
+		
+		List<String> rank = new ArrayList<String>();
+		rank.add("accu_1st");
+		rank.add("accu_2nd");
+		// rank.add("accu_3rd");
+		// rank.add("accu_4th");
+		// rank.add("accu_5th");
+		
+		Map<String, Object> fontName = null;
+		Map<String, Object> accuracy = null;
+		
+		for (int i = 0; i < analysisResult.size(); i++) {
+			fontName = new HashMap<String, Object>();
+			accuracy = new HashMap<String, Object>();
+			fontName.put("font", (String) analysisResult.get(i).get(0));
+			accuracy.put("accu", (Double) analysisResult.get(i).get(1));
+			
+			fontInfo = new ArrayList<Map<String, Object>>();
+			fontInfo.add(fontName);
+			fontInfo.add(accuracy);
+			
+			accuracyRanking = new HashMap<String, List<Map<String, Object>>>();
+			accuracyRanking.put(rank.get(i), fontInfo);
+
+			sortedList.add(accuracyRanking);
+		}		
+		return sortedList;
+	}
 }
