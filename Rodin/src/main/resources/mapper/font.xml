@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="font">
+    <select id="selectFontByFontname" parameterType="String" resultType="rodin.repository.vo.FontVo">
+    	<![CDATA[
+	      SELECT fontsno, fonts_name, fonts_company, fonts_license_1, fonts_license_2, fonts_license_3, fonts_license_4, fonts_license_5, fonts_license_6, fonts_license_7, regdate FROM fonts
+	      WHERE fonts_name = #{fontsName}
+	    ]]>
+    </select>
+</mapper>
