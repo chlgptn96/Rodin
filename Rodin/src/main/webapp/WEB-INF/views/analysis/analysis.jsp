@@ -76,6 +76,7 @@
 					<div class="modal-body cropped-image">
 						<div>
 							<img id="cropped-image" src="" >
+							<p>폰트이름 : ${accu_1st.fontsName }</p>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -189,7 +190,7 @@
 				maxWidth: 500,
 				maxHeight: 500,
 			});
-			// $croppedImageBox.css('display', 'block');
+			$croppedImageBox.css('display', 'block');
 			croppedImage.src = canvas.toDataURL();
 			$alert.removeClass('alert-success alert-warning');
 			//initialURL = image.src;
