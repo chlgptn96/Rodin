@@ -15,7 +15,7 @@ public class FontMapper extends AbstractDao {
     
     public FontVo selectFontByFontname(String fontName) {
     	logger.debug("Get Font Information From DB");
-    	FontVo fvo = (FontVo) selectOne("font.selectFontByFontname");
+    	FontVo fvo = (FontVo) selectOne("font.selectFontByFontname", fontName);
     	return fvo;
     }
  }
