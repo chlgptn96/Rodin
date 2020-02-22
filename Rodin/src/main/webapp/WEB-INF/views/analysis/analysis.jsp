@@ -77,6 +77,8 @@
 						<div>
 							<img id="cropped-image" src="" >
 							<p>폰트이름 : ${accu_1st.fontsName }</p>
+							<p>제작회사 : ${accu_1st.fontsCompany }</p>
+							<p>재배포 가능 여부 : ${accu_1st.fontsLicense7 }</p>
 						</div>
 					</div>
 					<div class="modal-footer">
