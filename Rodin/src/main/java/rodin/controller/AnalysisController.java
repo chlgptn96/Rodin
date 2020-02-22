@@ -43,9 +43,11 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 
+import rodin.repository.vo.FontVo;
 import rodin.repository.vo.PosterVo;
 import rodin.repository.vo.UserVo;
 import rodin.service.AnalysisService;
+import rodin.service.FontService;
 import rodin.util.Client;
 import rodin.util.HandlerFile;
 
@@ -65,6 +67,9 @@ public class AnalysisController {
 	
 	@Autowired
 	AnalysisService analysisService;
+	
+	@Autowired
+	FontService fontService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String analysis(Model model, HttpSession session, ModelAndView mv) throws Exception {
@@ -187,7 +192,17 @@ public class AnalysisController {
 		System.err.println(response.getBody());
 		JSONObject jsonObj = response.getBody();
 		
-		analysisService.selectFileByFontName(jsonObj);
+		List<Map<String, List<Map<String, Object>>>> fontListMap = (List<Map<String, List<Map<String, Object>>>>) analysisService.listToMapList(jsonObj);
+		
+		/* Get Font Info */
+		logger.debug("Get Font Infomation for adding session");
+		String fontFullName = (String) fontListMap.get(0).get("accu_1st").get(0).get("font");
+		logger.debug("FontFullName : " + fontFullName);
+		String fontName = fontFullName.split("_")[0];
+		logger.debug("FontName : " + fontName);
+		FontVo fvo = fontService.getFontInfo(fontName);
+		logger.debug("FontVo : " + fvo.toString());
+		session.setAttribute("accu_1st", fvo);
 		
 		//return response.getBody();
 		return ResponseEntity.ok(jsonObj);

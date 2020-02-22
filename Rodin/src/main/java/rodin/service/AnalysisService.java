@@ -1,6 +1,7 @@
 package rodin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,5 +20,5 @@ public interface AnalysisService {
 	public List<String> selectAllFileNameS3(AmazonS3 s3Client, String bucketName, HttpSession session) throws Exception;
 	public void sendFile(HttpSession session);
 	public void uploadFileS3(AmazonS3 s3Client, MultipartFile file, String bucketName, HttpSession session) throws Exception;
-	public void selectFileByFontName(JSONObject analysisResult);
+	public List<Map<String, List<Map<String, Object>>>> listToMapList(JSONObject analysisResult);
 }
