@@ -135,7 +135,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public void selectFileByFontName(JSONObject analysisResult) {
+	public List<Map<String, List<Map<String, Object>>>> listToMapList(JSONObject analysisResult) {
 		System.err.println("Get Font Info");
 
 		@SuppressWarnings("unchecked")
@@ -143,6 +143,8 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<Map<String, List<Map<String, Object>>>> result = addResult(res);
 				
 		System.err.println("result : " + result);
+		
+		return result;
 	}
 	
 	public static List<Map<String, List<Map<String, Object>>>> stringListToMap(List<List<Object>> analysisResultList) {
