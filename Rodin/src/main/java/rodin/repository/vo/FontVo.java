@@ -15,6 +15,22 @@ public class FontVo {
 	private String fontsLicense7;	// 재배포
 	private Date regdate;
 	
+	// Custom Font Information
+	private double accuracy;
+	private String fontPiece;
+	
+	public double getAccuracy() {
+		return accuracy;
+	}
+	public void setAccuracy(double accuracy) {
+		this.accuracy = accuracy;
+	}
+	public String getFontPiece() {
+		return fontPiece;
+	}
+	public void setFontPiece(String fontPiece) {
+		this.fontPiece = fontPiece;
+	}
 	public Long getFontsno() {
 		return fontsno;
 	}
@@ -87,6 +103,7 @@ public class FontVo {
 				+ ", fontsLicense1=" + fontsLicense1 + ", fontsLicense2=" + fontsLicense2 + ", fontsLicense3="
 				+ fontsLicense3 + ", fontsLicense4=" + fontsLicense4 + ", fontsLicense5=" + fontsLicense5
 				+ ", fontsLicense6=" + fontsLicense6 + ", fontsLicense7=" + fontsLicense7 + ", regdate=" + regdate
-				+ "]";
+				+ ", accuracy=" + accuracy + ", fontPiece=" + fontPiece + "]";
 	}
+
 }
