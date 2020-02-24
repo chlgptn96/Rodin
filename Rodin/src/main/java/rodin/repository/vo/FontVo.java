@@ -18,7 +18,14 @@ public class FontVo {
 	// Custom Font Information
 	private double accuracy;
 	private String fontPiece;
+	private String ocr;
 	
+	public String getOcr() {
+		return ocr;
+	}
+	public void setOcr(String ocr) {
+		this.ocr = ocr;
+	}
 	public double getAccuracy() {
 		return accuracy;
 	}
@@ -103,7 +110,7 @@ public class FontVo {
 				+ ", fontsLicense1=" + fontsLicense1 + ", fontsLicense2=" + fontsLicense2 + ", fontsLicense3="
 				+ fontsLicense3 + ", fontsLicense4=" + fontsLicense4 + ", fontsLicense5=" + fontsLicense5
 				+ ", fontsLicense6=" + fontsLicense6 + ", fontsLicense7=" + fontsLicense7 + ", regdate=" + regdate
-				+ ", accuracy=" + accuracy + ", fontPiece=" + fontPiece + "]";
+				+ ", accuracy=" + accuracy + ", fontPiece=" + fontPiece + ", ocr=" + ocr + "]";
 	}
 
 }
