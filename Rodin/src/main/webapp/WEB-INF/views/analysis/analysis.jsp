@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -74,11 +76,22 @@
 						</div>
 					</div>
 					<div class="modal-body cropped-image">
-						<div>
-							<img id="cropped-image" src="" >
+						<div class="result-container">
+							
+							<!-- 
 							<p>폰트이름 : ${accu_1st.fontsName }</p>
 							<p>제작회사 : ${accu_1st.fontsCompany }</p>
 							<p>재배포 가능 여부 : ${accu_1st.fontsLicense7 }</p>
+							<p>정확도 : <fmt:formatNumber value="${accu_1st.accuracy }" pattern=".00"/>%</p>
+							<p>등록날짜 : ${accu_1st.regdate }</p>
+							-->
+							<!-- 
+							<p>폰트이름 : ${font.fontsName }</p>
+							<p>제작회사 : ${font.fontsCompany }</p>
+							<p>재배포 가능 여부 : ${font.fontsLicense7 }</p>
+							<p>정확도 : <fmt:formatNumber value="${font.accuracy }" pattern=".00"/>%</p>
+							<p>등록날짜 : ${font.regdate }</p>
+							 -->
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -168,7 +181,7 @@
 		}
 		
 		document.getElementById('to-cropper').addEventListener('click', function() {
-			$croppedImageBox.css('display', 'none');
+			// $croppedImageBox.css('display', 'none');
 			$alert.hide();
 			$modal.modal('show');	
 		});
@@ -184,18 +197,18 @@
 		});
 		
 		document.getElementById('crop').addEventListener('click', function() {
-			//var initialURL;
-			
-			
+			// var initialURL;
+
 			// $modal.modal('hide');
 			var canvas = cropper.getCroppedCanvas({
 				maxWidth: 500,
 				maxHeight: 500,
 			});
-			$croppedImageBox.css('display', 'block');
-			croppedImage.src = canvas.toDataURL();
+			// $croppedImageBox.css('display', 'block');
+			// croppedImage.src = canvas.toDataURL();
 			$alert.removeClass('alert-success alert-warning');
 			//initialURL = image.src;
+		
 			canvas.toBlob(function (blob){
 				var formData = new FormData();
 				
@@ -208,7 +221,37 @@
 					processData: false,
 					contentType: false,
 					success: function() {
+						// $croppedImageBox.css('display', 'block');
 						// $alert.show().addClass('alert-success').text('Upload success');
+						// alert(result);
+						/*
+						
+						*/
+						$.ajax({
+							url: '<c:url value="/analysis/getFontInfo" />',
+							method: 'POST',
+							dataType: "json",
+							success: function(data) {
+								// alert("data : ", data.fontsName);
+								
+								// alert(data.font.fontsName);
+								$(".result-container").children().remove();
+								$(
+									'<img id="cropped-image" src="' + canvas.toDataURL() + '" >' +
+									'<div class="img-container">' +
+										'<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
+									'</div>' + 
+									'<p>폰트이름 : ' + data.font.fontsName + '</p>' + 
+									'<p>제작회사 : ' + data.font.fontsCompany + '</p>'  + 
+									'<p>재배포 가능 여부 : ' + data.font.fontsLicense7 + '</p>' +  
+									'<p>정확도 : ' + data.font.accuracy.toFixed(2) + '%</p>'
+								).appendTo($(".result-container"));
+							},
+							error: function() {
+								alert("failed");
+							}
+						});
+
 					},
 					error: function() {
 						croppedImage.src = baseSrc;
@@ -220,7 +263,7 @@
 				});
 				//alert(formData);
 			});
-			
+
 			
 		});
 		
