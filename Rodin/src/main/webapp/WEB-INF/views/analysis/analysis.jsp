@@ -77,7 +77,7 @@
 					</div>
 					<div class="modal-body cropped-image">
 						<div class="result-container">
-							<img id="cropped-image" src="" >
+							
 							<!-- 
 							<p>폰트이름 : ${accu_1st.fontsName }</p>
 							<p>제작회사 : ${accu_1st.fontsCompany }</p>
@@ -181,7 +181,7 @@
 		}
 		
 		document.getElementById('to-cropper').addEventListener('click', function() {
-			$croppedImageBox.css('display', 'none');
+			// $croppedImageBox.css('display', 'none');
 			$alert.hide();
 			$modal.modal('show');	
 		});
@@ -197,18 +197,18 @@
 		});
 		
 		document.getElementById('crop').addEventListener('click', function() {
-			//var initialURL;
-			
-			
+			// var initialURL;
+
 			// $modal.modal('hide');
 			var canvas = cropper.getCroppedCanvas({
 				maxWidth: 500,
 				maxHeight: 500,
 			});
-			$croppedImageBox.css('display', 'block');
-			croppedImage.src = canvas.toDataURL();
+			// $croppedImageBox.css('display', 'block');
+			// croppedImage.src = canvas.toDataURL();
 			$alert.removeClass('alert-success alert-warning');
 			//initialURL = image.src;
+		
 			canvas.toBlob(function (blob){
 				var formData = new FormData();
 				
@@ -221,6 +221,7 @@
 					processData: false,
 					contentType: false,
 					success: function() {
+						// $croppedImageBox.css('display', 'block');
 						// $alert.show().addClass('alert-success').text('Upload success');
 						// alert(result);
 						/*
@@ -234,9 +235,11 @@
 								// alert("data : ", data.fontsName);
 								
 								// alert(data.font.fontsName);
+								$(".result-container").children().remove();
 								$(
+									'<img id="cropped-image" src="' + canvas.toDataURL() + '" >' +
 									'<div class="img-container">' +
-										'<img src="https://rodin-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.fontPiece + '">' +
+										'<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
 									'</div>' + 
 									'<p>폰트이름 : ' + data.font.fontsName + '</p>' + 
 									'<p>제작회사 : ' + data.font.fontsCompany + '</p>'  + 
