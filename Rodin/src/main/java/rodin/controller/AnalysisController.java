@@ -218,6 +218,7 @@ public class AnalysisController {
 		
 		fvo.setAccuracy(fontAccuracy);
 		fvo.setFontPiece(fontFullName);
+		fvo.setOcr(ocr);
 		logger.debug("FontVo : " + fvo.toString());
 		
 		session.setAttribute("accu_1st", fvo);
