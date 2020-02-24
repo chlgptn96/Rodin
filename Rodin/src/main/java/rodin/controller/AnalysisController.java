@@ -3,6 +3,7 @@ package rodin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -147,7 +149,8 @@ public class AnalysisController {
 
 	@ResponseBody
 	@RequestMapping(value="/flask", method=RequestMethod.POST) // IOException - 파일이 없을 때 발생할 에러.
-	public ResponseEntity<JSONObject> sendCoppedImgtoServer(HttpSession session, MultipartHttpServletRequest multipartRequest) throws IOException { 
+	public ResponseEntity<JSONObject> sendCoppedImgtoServer(HttpSession session, MultipartHttpServletRequest multipartRequest) throws IOException {
+	// public FontVo sendCoppedImgtoServer(HttpSession session, MultipartHttpServletRequest multipartRequest) throws IOException {
 		
 		System.err.println("flask POST");
 		
@@ -197,15 +200,31 @@ public class AnalysisController {
 		/* Get Font Info */
 		logger.debug("Get Font Infomation for adding session");
 		String fontFullName = (String) fontListMap.get(0).get("accu_1st").get(0).get("font");
+		// double accuracy = (double) fontListMap.get(0).get("accu_1st").get(0).get("accu");
+		double fontAccuracy = (double) fontListMap.get(0).get("accu_1st").get(1).get("accu");
 		logger.debug("FontFullName : " + fontFullName);
-		String fontName = fontFullName.split("_")[0];
+
+		String fontName = fontFullName.substring(0, fontFullName.length()-6);
+		String ocr = fontFullName.substring(fontFullName.length()-5, fontFullName.length()-4);
+		String extension = fontFullName.substring(fontFullName.length()-4);
+		
 		logger.debug("FontName : " + fontName);
-		FontVo fvo = fontService.getFontInfo(fontName);
+		logger.debug("Accuracy : " + fontAccuracy);
+		logger.debug("Ocr : " + ocr);
+		logger.debug("Extension : " + extension);
+		
+		FontVo fvo = new FontVo();
+		fvo = fontService.getFontInfo(fontName);
+		
+		fvo.setAccuracy(fontAccuracy);
+		fvo.setFontPiece(fontFullName);
 		logger.debug("FontVo : " + fvo.toString());
+		
 		session.setAttribute("accu_1st", fvo);
 		
-		//return response.getBody();
+		// return response.getBody();
 		return ResponseEntity.ok(jsonObj);
+		// return fvo;
 	}
 	
 	public static class FilenameAwareInputStreamResource extends InputStreamResource {
@@ -280,6 +299,16 @@ public class AnalysisController {
 		session.setAttribute("imgURL", url);
 		
 		return "redirect:/analysis/cropper";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getFontInfo", method=RequestMethod.POST)
+	public ModelMap getFontInfo(HttpSession session) {
+		
+		FontVo font = (FontVo) session.getAttribute("accu_1st");
+		ModelMap fontMap = new ModelMap("font", font);
+		System.err.println("fontMap : " + fontMap.toString());
+		return fontMap;
 	}
 	
 	
