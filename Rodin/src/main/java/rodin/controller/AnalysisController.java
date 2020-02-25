@@ -214,10 +214,24 @@ public class AnalysisController {
 		logger.debug("Extension : " + extension);
 		
 		FontVo fvo = new FontVo();
-		fvo = fontService.getFontInfo(fontName);
+		logger.debug("fvo is created : " + fvo);
 		
+		fvo = fontService.getFontInfo(fontName);
+		if (fvo == null) {
+			logger.debug("FontVo 없음");	
+		} else {
+			logger.debug("FontVo : " + fvo.toString());
+		}
+			
+		
+		logger.debug("Get Font Information Finished");
 		fvo.setAccuracy(fontAccuracy);
-		fvo.setFontPiece(fontFullName);
+		
+		/* 폰트 이름에 '+' 문자가 있는 경우를 위한 전처리 */
+		String tempStr = fontFullName;
+		String fontPiece = tempStr.replaceAll("\\+", "%2B");
+		
+		fvo.setFontPiece(fontPiece);
 		fvo.setOcr(ocr);
 		logger.debug("FontVo : " + fvo.toString());
 		
