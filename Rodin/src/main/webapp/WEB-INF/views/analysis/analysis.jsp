@@ -188,6 +188,9 @@
 		
 		$modal.on('shown.bs.modal', function() {
 			cropper = new Cropper(image, {
+				ready() {
+					this.cropper.setCropBoxData({left: 0, top: 0, width: 0, height: 0,});
+				},
 				aspectRatio: NaN,
 				viewMode: 3,
 			});
@@ -204,6 +207,7 @@
 				maxWidth: 500,
 				maxHeight: 500,
 			});
+		
 			// $croppedImageBox.css('display', 'block');
 			// croppedImage.src = canvas.toDataURL();
 			$alert.removeClass('alert-success alert-warning');
