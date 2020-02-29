@@ -130,7 +130,9 @@
 					<input id="to-cropper" type="submit" value="폰트 추출" onclick="javascript: form.action='<c:url value="/analysis/cropper" />';">
 					-->
 					<input id="to-cropper" type="button" value="폰트 추출">
+					<!--
 					<input id="submit-btn" type="submit" value="폰트 검색" onclick="javascript: form.action='<c:url value="/analysis/flask"/>';">
+					-->
 				</form>
 			</header>
 			<section id="thumbnails">
