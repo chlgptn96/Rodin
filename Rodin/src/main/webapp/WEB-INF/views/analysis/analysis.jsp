@@ -55,6 +55,10 @@
 		    .img-container img {
 		      max-width: 100%;
 		    }
+		    
+		    #main {
+		    	z-index: 1040;
+		    }
 		    		    
 
 		</style>
@@ -72,8 +76,12 @@
 					</div>
 					<div class="modal-body">
 						<div class="img-container">
-							<img id="image" src="https://rodin-image.s3.ap-northeast-2.amazonaws.com/${posterList[0] }">
+							<img id="image" src="https://rodin-image.s3.ap-northeast-2.amazonaws.com/${posterList[0] }" >
 						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-primary" id="crop">자르기</button>
 					</div>
 					<div class="modal-body cropped-image">
 						<div class="result-container">
@@ -93,10 +101,6 @@
 							<p>등록날짜 : ${font.regdate }</p>
 							 -->
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-						<button type="button" class="btn btn-primary" id="crop">자르기</button>
 					</div>
 				</div>
 			</div>
@@ -159,127 +163,129 @@
 		<script src="<c:url value="/assets/js/js_side/main.js" />" ></script>
 		<script src="<c:url value="/assets/js/js_cropper/cropper.js" />" ></script>
 		<script>
-
-		var baseSrc;
-		// var baseUrl = 
-		var image = document.getElementById('image');
-		// var _alert = document.getElementsByClassName('alert')[0];
-		var $alert = $('.alert');
-		// var _modal = document.getElementById('modal');
-		var $modal = $('#modal');
-		var $croppedImageBox = $('.cropped-image');
-		var croppedImage = document.getElementById('cropped-image');
-		var cropper;
-		var srcList = document.getElementsByClassName('thumbnail-base-image');
-		
-		
-		
-		for (let i = 0; i < srcList.length; i++) {
-			srcList[i].addEventListener('click', function() {
-				baseSrc = srcList[i].getAttribute('src');
-				// alert(baseSrc);
-				image.src = baseSrc;
-			});
-		}
-		
-		document.getElementById('to-cropper').addEventListener('click', function() {
-			// $croppedImageBox.css('display', 'none');
-			$alert.hide();
-			$modal.modal('show');	
-		});
-		
-		$modal.on('shown.bs.modal', function() {
-			cropper = new Cropper(image, {
-				ready() {
-					this.cropper.setCropBoxData({left: 0, top: 0, width: 0, height: 0,});
-				},
-				aspectRatio: NaN,
-				viewMode: 3,
-			});
-		}).on('hidden.bs.modal', function() {
-			cropper.destroy();
-			cropper = null;
-		});
-		
-		document.getElementById('crop').addEventListener('click', function() {
-			// var initialURL;
-
-			// $modal.modal('hide');
-			var canvas = cropper.getCroppedCanvas({
-				maxWidth: 500,
-				maxHeight: 500,
-			});
-		
-			// $croppedImageBox.css('display', 'block');
-			// croppedImage.src = canvas.toDataURL();
-			$alert.removeClass('alert-success alert-warning');
-			//initialURL = image.src;
-		
-			canvas.toBlob(function (blob){
-				var formData = new FormData();
-				
-				formData.append('croppedImage', blob, 'croppedImage.jpg');
-				$.ajax({
-					url: '<c:url value="/analysis/flask" />',
-					enctype: 'multipart/form-data',
-					method: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
-					success: function() {
-						// $croppedImageBox.css('display', 'block');
-						// $alert.show().addClass('alert-success').text('Upload success');
-						// alert(result);
-						/*
-						
-						*/
-						$.ajax({
-							url: '<c:url value="/analysis/getFontInfo" />',
-							method: 'POST',
-							dataType: "json",
-							success: function(data) {
-								// alert("data : ", data.fontsName);
-								
-								// alert(data.font.fontsName);
-								$(".result-container").children().remove();
-								$(
-									'<img id="cropped-image" src="' + canvas.toDataURL() + '" >' +
-									'<div class="img-container">' +
-										'<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
-									'</div>' + 
-									'<p>폰트이름 : ' + data.font.fontsName + '</p>' + 
-									'<p>제작회사 : ' + data.font.fontsCompany + '</p>'  + 
-									'<p>재배포 가능 여부 : ' + data.font.fontsLicense7 + '</p>' +  
-									'<p>정확도 : ' + data.font.accuracy.toFixed(2) + '%</p>'
-								).appendTo($(".result-container"));
-							},
-							error: function() {
-								alert("failed");
-							}
-						});
-
-					},
-					error: function() {
-						croppedImage.src = baseSrc;
-						// $alert.show().addClass('alert-warning').text('Upload error');
-					},
-					complete: function () {
-
-					}
-				});
-				//alert(formData);
-			});
-
+		window.addEventListener('DOMContentLoaded', function () {
+			var baseSrc;
+			// var baseUrl = 
+			var image = document.getElementById('image');
+			// var _alert = document.getElementsByClassName('alert')[0];
+			var $alert = $('.alert');
+			// var _modal = document.getElementById('modal');
+			var $modal = $('#modal');
+			var $croppedImageBox = $('.cropped-image');
+			var croppedImage = document.getElementById('cropped-image');
+			var cropper;
+			var srcList = document.getElementsByClassName('thumbnail-base-image');
 			
+			
+			
+			for (let i = 0; i < srcList.length; i++) {
+				srcList[i].addEventListener('click', function() {
+					baseSrc = srcList[i].getAttribute('src');
+					// alert(baseSrc);
+					image.src = baseSrc;
+				});
+			}
+			
+			document.getElementById('to-cropper').addEventListener('click', function() {
+				// $croppedImageBox.css('display', 'none');
+				$alert.hide();
+				$modal.modal('show');	
+			});
+			
+			$modal.on('shown.bs.modal', function() {
+				cropper = new Cropper(image, {
+					ready() {
+						this.cropper.setCropBoxData({left: 0, top: 0, width: 50, height: 50,});
+					},
+					aspectRatio: NaN,
+					viewMode: 3,
+				});
+				
+			}).on('hidden.bs.modal', function() {
+				cropper.destroy();
+				cropper = null;
+			});
+			
+			document.getElementById('crop').addEventListener('click', function() {
+				// var initialURL;
+	
+				// $modal.modal('hide');
+				var canvas = cropper.getCroppedCanvas({
+					maxWidth: 500,
+					maxHeight: 500,
+					imageSmoothingEnabled: false,
+				});
+				console.log(typeof(canvas));
+				// $croppedImageBox.css('display', 'block');
+				// croppedImage.src = canvas.toDataURL();
+				$alert.removeClass('alert-success alert-warning');
+				//initialURL = image.src;
+			
+				canvas.toBlob(function (blob){
+					var formData = new FormData();
+					
+					formData.append('croppedImage', blob, 'croppedImage.jpg');
+					$.ajax({
+						url: '<c:url value="/analysis/flask" />',
+						enctype: 'multipart/form-data',
+						method: 'POST',
+						data: formData,
+						processData: false,
+						contentType: false,
+						success: function() {
+							// $croppedImageBox.css('display', 'block');
+							// $alert.show().addClass('alert-success').text('Upload success');
+							// alert(result);
+							/*
+
+							*/
+							$.ajax({
+								url: '<c:url value="/analysis/getFontInfo" />',
+								method: 'POST',
+								dataType: "json",
+								success: function(data) {
+									// alert("data : ", data.fontsName);
+									
+									// alert(data.font.fontsName);
+									$(".result-container").children().remove();
+									$(
+										'<img id="cropped-image" src="' + canvas.toDataURL() + '" height="70px" >' +
+										'<div class="img-container">' +
+											'<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
+										'</div>' + 
+										'<p>폰트이름 : ' + data.font.fontsName + '</p>' + 
+										'<p>제작회사 : ' + data.font.fontsCompany + '</p>'  + 
+										'<p>재배포 가능 여부 : ' + data.font.fontsLicense7 + '</p>' +  
+										'<p>정확도 : ' + data.font.accuracy.toFixed(2) + '%</p>'
+									).appendTo($(".result-container"));
+								},
+								error: function() {
+									alert("failed");
+								}
+							});
+	
+						},
+						error: function() {
+							croppedImage.src = baseSrc;
+							// $alert.show().addClass('alert-warning').text('Upload error');
+						},
+						complete: function () {
+	
+						}
+					});
+					//alert(formData);
+				});
+	
+				
+			});
+			
+			/*
+			$('.thumbnail-base-image').on('click', function() {
+				baseSrc = $(this).attr('src');
+				alert(baseSrc);
+			});
+			*/
 		});
-		
-		/*
-		$('.thumbnail-base-image').on('click', function() {
-			baseSrc = $(this).attr('src');
-			alert(baseSrc);
-		});
-		*/
-		
 		
 		</script>
 
