@@ -159,17 +159,17 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<String> rank = new ArrayList<String>();
 		rank.add("accu_1st");
 		rank.add("accu_2nd");
-//		rank.add("accu_3rd");
-//		rank.add("accu_4th");
-//		rank.add("accu_5th");
+		rank.add("accu_3rd");
+		rank.add("accu_4th");
+		rank.add("accu_5th");
 		
 		System.err.println("rank : " + rank.toString());
 		
 		Map<String, Object> fontName = null;
 		Map<String, Object> accuracy = null;
 		
-		for (int i = 0; i < analysisResult.size(); i++) {
-//		for (int i = 0; i < 5; i++) {
+//		for (int i = 0; i < analysisResult.size(); i++) {
+		for (int i = 0; i < 5; i++) {
 			fontName = new HashMap<String, Object>();
 			accuracy = new HashMap<String, Object>();
 			fontName.put("font", (String) analysisResult.get(i).get(0));
