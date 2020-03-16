@@ -251,8 +251,9 @@
 									$(
 										'<img id="cropped-image" src="' + canvas.toDataURL() + '" height="70px" >' +
 										'<div class="img-container">' +
-											'<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
-										'</div>' + 
+											// '<img src="https://rodin-font-image.s3.ap-northeast-2.amazonaws.com/abc/' + data.font.ocr + '/' + data.font.fontPiece + '">' +
+											'<img src="<c:url value="/local/' + data.font.ocr + '/' + data.font.fontPiece + '"/>" >' +
+											'</div>' + 
 										'<p>폰트이름 : ' + data.font.fontsName + '</p>' + 
 										'<p>제작회사 : ' + data.font.fontsCompany + '</p>'  + 
 										'<p>재배포 가능 여부 : ' + data.font.fontsLicense7 + '</p>' +  
